@@ -8,7 +8,7 @@ None
 
 #### Variables
 
-A lot (see `defaults/main/yml`)
+A lot (see `defaults/main.yml`)
 
 Some commonly used:
 
