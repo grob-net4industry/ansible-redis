@@ -38,8 +38,12 @@ bind {{ redis_bind | join(' ') }}
 # incoming connections. There is no default, so Redis will not listen
 # on a unix socket when not specified.
 #
-# unixsocket {{ redis_unixsocket }}
-# unixsocketperm {{ redis_unixsocketperm }}
+{% if not redis_unixsocket is none %}
+unixsocket {{ redis_unixsocket }}
+{% if not redis_unixsocketperm is none %}
+unixsocketperm {{ redis_unixsocketperm }}
+{% endif %}
+{% endif %}
 
 # Close the connection after a client is idle for N seconds (0 to disable)
 timeout {{ redis_timeout }}
@@ -311,7 +315,9 @@ slave-priority {{ redis_slave_priority }}
 # 150k passwords per second against a good box. This means that you should
 # use a very strong password otherwise it will be very easy to break.
 #
-# requirepass {{ redis_requirepass }}
+{% if not redis_requirepass is none %}
+requirepass {{ redis_requirepass }}
+{% endif %}
 
 # Command renaming.
 #
@@ -347,7 +353,9 @@ rename-command {{ redis_command_rename.before }} {{ redis_command_rename.after }
 # Once the limit is reached Redis will close all the new connections sending
 # an error 'max number of clients reached'.
 #
-# maxclients {{ redis_maxclients }}
+{% if not redis_maxclients is none %}
+maxclients {{ redis_maxclients }}
+{% endif %}
 
 # Don't use more memory than the specified amount of bytes.
 # When the memory limit is reached Redis will try to remove keys
@@ -372,7 +380,9 @@ rename-command {{ redis_command_rename.before }} {{ redis_command_rename.after }
 # limit for maxmemory so that there is some free RAM on the system for slave
 # output buffers (but this is not needed if the policy is 'noeviction').
 #
-# maxmemory {{ redis_maxmemory }}
+{% if not redis_maxmemory is none %}
+maxmemory {{ redis_maxmemory }}
+{% endif %}
 
 # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
 # is reached. You can select among five behaviors:

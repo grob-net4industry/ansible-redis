@@ -5,8 +5,10 @@ redis_pidfile: /var/run/redis/redis-server.pid
 redis_port: 6379
 redis_bind:
   - 127.0.0.1
-redis_unixsocket: /var/run/redis/redis.sock
-redis_unixsocketperm: 755
+redis_unixsocket: null
+# /var/run/redis/redis.sock
+redis_unixsocketperm: null
+# 755
 redis_timeout: 0
 redis_tcp_keepalive: 0
 redis_loglevel: notice
@@ -41,14 +43,14 @@ redis_repl_backlog_ttl: 3600
 redis_slave_priority: 100
 redis_min_slaves_to_write: 3
 redis_min_slaves_max_lag: 10
-redis_requirepass: foobared
+redis_requirepass: null
 redis_command_renames: []
 #  - before: CONFIG
 #    after: '""'
 #  - before: CONFIG
 #    after: b840fc02d524045429941cc15f59e41cb7be6c52
-redis_maxclients: 10000
-redis_maxmemory: <bytes>
+redis_maxclients: null
+redis_maxmemory: null
 redis_maxmemory_polic: volatile-lru
 redis_maxmemory_samples: 3
 redis_appendonly: false
