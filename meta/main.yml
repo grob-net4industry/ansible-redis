@@ -17,4 +17,5 @@ galaxy_info:
   - system
   - web
   - database
+  - database:nosql
 dependencies: []
