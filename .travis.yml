@@ -29,5 +29,13 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
+  # Test redis connection
+  - >
+    echo "PING"
+    | redis-cli
+    | grep -q 'PONG'
+    && (echo 'Availability test: pass' && exit 0)
+    || (echo 'Availability test: fail' && exit 1)
+
 notifications:
   email: false
