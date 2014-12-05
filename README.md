@@ -1,6 +1,8 @@
-## redis [![Build Status](https://travis-ci.org/Oefenweb/ansible-redis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-redis)
+## redis
 
-Set up a redis (2.8) server in Debian-like systems.
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-redis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-redis) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-redis-blue.svg)](https://galaxy.ansible.com/list#/roles/1724)
+
+Set up a redis (2.8) server in Ubuntu systems.
 
 #### Requirements
 
