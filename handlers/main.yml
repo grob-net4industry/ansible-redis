@@ -4,6 +4,3 @@
   service:
     name: redis-server
     state: restarted
-
-- name: reload sysctl
-  command: sysctl -p

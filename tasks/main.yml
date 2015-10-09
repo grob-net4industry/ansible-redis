@@ -26,8 +26,8 @@
   sysctl:
     name: vm.overcommit_memory
     value: "{{ redis_vm_overcommit_memory }}"
+    reload: yes
     state: present
-  notify: reload sysctl
   when: redis_vm_overcommit_memory != false
   tags: [configuration, redis, redis-vm-overcommit-memory]
 
