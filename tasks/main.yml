@@ -3,7 +3,7 @@
 - name: add repository from PPA and install its signing key
   apt_repository:
     repo: 'ppa:chris-lea/redis-server'
-    update_cache: yes
+    update_cache: true
   tags: [configuration, redis, redis-add-repository]
 
 - name: install
@@ -26,7 +26,7 @@
   sysctl:
     name: vm.overcommit_memory
     value: "{{ redis_vm_overcommit_memory }}"
-    reload: yes
+    reload: true
     state: present
   when: redis_vm_overcommit_memory != false
   tags: [configuration, redis, redis-vm-overcommit-memory]
@@ -35,5 +35,5 @@
   service:
     name: redis-server
     state: started
-    enabled: yes
+    enabled: true
   tags: [configuration, redis, redis-start-enable-service]
