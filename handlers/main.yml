@@ -1,5 +1,5 @@
----
 # handlers file for redis
+---
 - name: restart redis
   service:
     name: redis-server
