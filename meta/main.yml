@@ -7,12 +7,14 @@ galaxy_info:
   license: BSD
   min_ansible_version: 1.4
   platforms:
-  - name: Ubuntu
-    versions:
-    - all
+    - name: Ubuntu
+      versions:
+        - lucid
+        - precise
+        - trusty
   categories:
-  - system
-  - web
-  - database
-  - database:nosql
+    - system
+    - web
+    - database
+    - database:nosql
 dependencies: []
