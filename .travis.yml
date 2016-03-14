@@ -44,7 +44,7 @@ before_install:
   - sudo apt-get update -qq
 
   # Remove redis-server
-  - sudo apt-get remove --purge redis-server
+  - sudo apt-get remove --purge --yes redis-server
 
 install:
   # Install Ansible.
