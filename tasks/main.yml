@@ -4,13 +4,19 @@
   apt_repository:
     repo: 'ppa:chris-lea/redis-server'
     update_cache: true
-  tags: [configuration, redis, redis-add-repository]
+  tags:
+    - configuration
+    - redis
+    - redis-add-repository
 
 - name: install
   apt:
     name: redis-server
     state: latest
-  tags: [configuration, redis, redis-install]
+  tags:
+    - configuration
+    - redis
+    - redis-install
 
 - name: update configuration file
   template:
@@ -20,7 +26,10 @@
     group: root
     mode: 0644
   notify: restart redis
-  tags: [configuration, redis, redis-configuration]
+  tags:
+   - configuration
+   - redis
+   - redis-configuration
 
 - name: set system overcommit policy
   sysctl:
@@ -29,11 +38,17 @@
     reload: true
     state: present
   when: redis_vm_overcommit_memory != false
-  tags: [configuration, redis, redis-vm-overcommit-memory]
+  tags:
+    - configuration
+    - redis
+    - redis-vm-overcommit-memory
 
 - name: start and enable service
   service:
     name: redis-server
     state: started
     enabled: true
-  tags: [configuration, redis, redis-start-enable-service]
+  tags:
+    - configuration
+    - redis
+    - redis-start-enable-service
