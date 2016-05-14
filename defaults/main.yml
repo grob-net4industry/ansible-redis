@@ -3,6 +3,7 @@
 redis_daemonize: true
 redis_pidfile: /var/run/redis/redis-server.pid
 redis_port: 6379
+redis_tcp_backlog: 511
 redis_bind:
   - 127.0.0.1
 redis_unixsocket: null
@@ -12,7 +13,7 @@ redis_unixsocketperm: null
 redis_timeout: 0
 redis_tcp_keepalive: 0
 redis_loglevel: notice
-redis_logfile: /var/log/redis/redis-server.log
+redis_logfile: '""'
 redis_syslog_enabled: false
 redis_syslog_ident: redis
 redis_syslog_facility: local0
@@ -20,7 +21,7 @@ redis_databases: 16
 redis_saves:
   - seconds: 900
     changes: 1
-  - seconds: 30
+  - seconds: 300
     changes: 10
   - seconds: 60
     changes: 10000
@@ -35,6 +36,8 @@ redis_slaveof:
 redis_masterauth: null
 redis_slave_serve_stale_data: true
 redis_slave_read_only: true
+redis_repl_diskless_sync: false
+redis_repl_diskless_sync_delay: 5
 redis_repl_ping_slave_period: 10
 redis_repl_timeout: 60
 redis_repl_disable_tcp_nodelay: false
@@ -51,17 +54,19 @@ redis_command_renames: []
 #    after: b840fc02d524045429941cc15f59e41cb7be6c52
 redis_maxclients: null
 redis_maxmemory: null
-redis_maxmemory_polic: volatile-lru
-redis_maxmemory_samples: 3
+redis_maxmemory_polic: noeviction
+redis_maxmemory_samples: 5
 redis_appendonly: false
 redis_appendfilename: appendonly.aof
 redis_appendfsync: everysec
 redis_no_appendfsync_on_rewrite: false
 redis_auto_aof_rewrite_percentage: 100
 redis_auto_aof_rewrite_min_size: 64mb
+redis_aof_load_truncated: true
 redis_lua_time_limit: 5000
 redis_slowlog_log_slower_than: 10000
 redis_slowlog_max_len: 128
+redis_latency_monitor_threshold: 0
 redis_notify_keyspace_events: '""'
 redis_hash_max_ziplist_entries: 512
 redis_hash_max_ziplist_value: 64
@@ -70,6 +75,7 @@ redis_list_max_ziplist_value: 64
 redis_set_max_intset_entries: 512
 redis_zset_max_ziplist_entries: 128
 redis_zset_max_ziplist_value: 64
+redis_hll_sparse_max_bytes: 3000
 redis_activerehashing: true
 redis_client_output_buffer_limits:
   - class: normal
