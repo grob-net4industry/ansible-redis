@@ -3,15 +3,15 @@
 galaxy_info:
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
-  description: Set up a redis (2.8) server in Ubuntu systems
+  description: Set up the latest stable redis server in Ubuntu systems (using Chris Lea's ppa)
   license: BSD
   min_ansible_version: 1.6
   platforms:
     - name: Ubuntu
       versions:
-        - lucid
         - precise
         - trusty
+        - xenial
   galaxy_tags:
     - system
     - web
