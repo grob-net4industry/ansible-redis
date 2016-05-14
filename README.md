@@ -1,8 +1,8 @@
 ## redis
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-redis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-redis) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-redis-blue.svg)](https://galaxy.ansible.com/list#/roles/1724)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-redis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-redis) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-redis-blue.svg)](https://galaxy.ansible.com/tersmitten/redis)
 
-Set up a redis (2.8) server in Ubuntu systems.
+Set up the latest stable redis server in Ubuntu systems (using [Chris Lea's ppa](https://launchpad.net/~chris-lea/+archive/ubuntu/redis-server)).
 
 #### Requirements
 
@@ -17,7 +17,7 @@ Some commonly used:
 * `redis_port` [default: `6379`]: Accept connections on the specified port
 * `redis_bind` [default: `[127.0.0.1]`]: Listen for connections form the specified IP addresses
 * `redis_databases` [default: `16`]: The number of databases
-* `redis_saves` [default: `[{seconds: 900, changes: 1}, {seconds: 30, changes: 10}, {seconds: 60, changes: 10000}]`]: Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred
+* `redis_saves` [default: `[{seconds: 900, changes: 1}, {seconds: 300, changes: 10}, {seconds: 60, changes: 10000}]`]: Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred
 * `redis_slaveof` [default: `{masterip: null, masterport: null}`]: Use slaveof to make a Redis instance a copy of another Redis server
 * `redis_masterauth` [default: `null`]: Master server password
 * `redis_requirepass` [default: `null`]: Require clients to issue AUTH <PASSWORD> before processing any other commands
@@ -34,7 +34,7 @@ None
 ---
 - hosts: all
   roles:
-  - redis
+    - redis
 ```
 
 #### License
