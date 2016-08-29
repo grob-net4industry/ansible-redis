@@ -1,2 +1,9 @@
 # vars file for redis
 ---
+redis_system_userredis_system_user: redis
+redis_system_group: redis
+
+redis_instance_name_full: "redis{{ '-' + redis_instance_name if redis_instance_name else '' }}"
+redis_instance_service: "{{ redis_instance_name_full }}-server"
+
+redis_configuration_file: "/etc/redis/{{ redis_instance_name_full }}.conf"

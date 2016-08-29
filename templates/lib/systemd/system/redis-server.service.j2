@@ -1,0 +1,16 @@
+; {{ ansible_managed }}
+
+[Unit]
+Description=Advanced key-value store
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/redis-server /etc/redis/{{ redis_instance_name_full }}.conf
+ExecStop=/usr/bin/redis-cli shutdown
+Restart=always
+User={{ redis_system_user }}
+Group={{ redis_system_group }}
+
+[Install]
+WantedBy=multi-user.target
