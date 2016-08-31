@@ -11,7 +11,7 @@
     - redis-kernel-vm-overcommit-memory
 
 - name: kernel | check transparent_hugepage
-  shell: awk -F'[\[\]]' '{print $2}' {{ item }}
+  shell: awk 'NR>1 {print $1}' RS=[ FS=] {{ item }}
   register: transparent_hugepage_check
   failed_when: false
   changed_when: false
