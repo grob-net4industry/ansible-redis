@@ -37,7 +37,7 @@
     - src: etc/redis/redis.conf.j2
       dest: "{{ redis_configuration_file }}"
     - src: etc/default/redis-server.j2
-      dest: "{{ redis_etc_defaults_file }}"
+      dest: "{{ redis_etc_default_file }}"
   notify: restart redis-server
   tags:
     - redis-configure-configuration
