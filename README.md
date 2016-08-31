@@ -58,7 +58,7 @@ None
       redis_port: 6381
 ```
 
-**Note** that multiple host sections are needed to flush handlers between roles calls.
+**Note** that multiple host sections are needed to flush handlers between role calls.
 
 #### License
 
