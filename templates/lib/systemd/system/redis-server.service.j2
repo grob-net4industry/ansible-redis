@@ -1,16 +1,21 @@
 ; {{ ansible_managed }}
 
 [Unit]
-Description=Advanced key-value store
+Description={{ redis_instance_service }} - Persistent key-value db
 After=network.target
 
 [Service]
 Type=forking
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p {{ redis_pidfile | dirname }}
+ExecStartPre=/bin/chown -R {{ redis_system_user }}:{{ redis_system_group }} {{ redis_pidfile | dirname }}
 ExecStart=/usr/bin/redis-server /etc/redis/{{ redis_instance_name_full }}.conf
-ExecStop=/usr/bin/redis-cli shutdown
+ExecStop=/bin/kill $MAINPID
+ExecReload=/bin/kill -USR2 $MAINPID
+PIDFile={{ redis_pidfile }}
 Restart=always
-User={{ redis_system_user }}
-Group={{ redis_system_group }}
+User=root
+Group=root
 
 [Install]
 WantedBy=multi-user.target
