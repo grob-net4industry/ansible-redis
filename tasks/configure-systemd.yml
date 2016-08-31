@@ -1,0 +1,19 @@
+# tasks file for redis
+---
+- name: configure | systemd | update script
+  template:
+    src: lib/systemd/system/redis-server.service.j2
+    dest: "/lib/systemd/system/{{ redis_instance_service }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  register: update_systemd_script
+  notify: restart redis-server
+  tags:
+    - redis-configure-systemd-update
+
+- name: configure | systemd | reload
+  command: systemctl daemon-reload
+  when: update_systemd_script | changed
+  tags:
+    - redis-configure-systemd-reload

@@ -12,6 +12,22 @@
     - redis
     - redis-configure
 
+- include: configure-initd.yml
+  when: ansible_distribution_version | version_compare('15.04', '<')
+  tags:
+    - configuration
+    - redis
+    - redis-configure
+    - redis-configure-initd
+
+- include: configure-systemd.yml
+  when: ansible_distribution_version | version_compare('15.04', '>=')
+  tags:
+    - configuration
+    - redis
+    - redis-configure
+    - redis-configure-systemd
+
 - include: kernel.yml
   tags:
     - configuration

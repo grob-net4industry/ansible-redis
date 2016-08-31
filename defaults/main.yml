@@ -1,7 +1,6 @@
 # defaults file for redis
 ---
 redis_instance_name: ''
-# redis_instance_name: 'write-through'
 
 redis_daemonize: true
 redis_pidfile: "/var/run/redis/{{ redis_instance_service }}.pid"
