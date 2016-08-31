@@ -9,23 +9,3 @@
   when: redis_vm_overcommit_memory != false
   tags:
     - redis-kernel-vm-overcommit-memory
-
-- name: kernel | check transparent_hugepage
-  shell: awk 'NR>1 {print $1}' RS=[ FS=] {{ item }}
-  register: transparent_hugepage_check
-  failed_when: false
-  changed_when: false
-  with_items: "{{ redis_transparent_hugepage_files }}"
-  when: redis_transparent_hugepage != false
-  tags:
-    - redis-kernel-transparent-hugepage
-    - redis-kernel-transparent-hugepage-check
-
-- name: kernel | set transparent_hugepage
-  shell: echo {{ redis_transparent_hugepage }} > {{ item.item }}
-  changed_when: item.stdout != redis_transparent_hugepage
-  with_items: "{{ transparent_hugepage_check.results | default([]) }}"
-  when: item.stdout is defined
-  tags:
-    - redis-kernel-transparent-hugepage
-    - redis-kernel-transparent-hugepage-set
