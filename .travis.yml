@@ -71,7 +71,14 @@ script:
   # Test redis connection
   - >
     echo "PING"
-    | redis-cli
+    | redis-cli -p 6379
+    | grep -q 'PONG'
+    && (echo 'Availability test: pass' && exit 0)
+    || (echo 'Availability test: fail' && exit 1)
+
+  - >
+    echo "PING"
+    | redis-cli -p 6380
     | grep -q 'PONG'
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
