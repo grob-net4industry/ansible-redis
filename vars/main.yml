@@ -7,3 +7,4 @@ redis_instance_name_full: "redis{{ '-' + redis_instance_name if redis_instance_n
 redis_instance_service: "{{ redis_instance_name_full }}-server"
 
 redis_configuration_file: "/etc/redis/{{ redis_instance_name_full }}.conf"
+redis_etc_defaults_file: "/etc/default/{{ redis_instance_service }}"

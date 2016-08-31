@@ -11,6 +11,7 @@ None
 #### Variables
 
 * `redis_instance_name`: [default: `''`]: The name of the redis server instance, required when you want to run multiple instances
+* `redis_limit_no_file`: [optional]: Call `ulimit -n` with this argument prior to invoking Redis itself (e.g. `65536`)
 
 A lot (see `defaults/main.yml`)
 

@@ -26,13 +26,18 @@
     - redis-configure-directories
     - redis-configure-directories-create
 
-- name: configure | update configuration file
+- name: configure | update configuration file(s)
   template:
-    src: etc/redis/redis.conf.j2
-    dest: "{{ redis_configuration_file }}"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     owner: root
     group: root
     mode: 0644
+  with_items:
+    - src: etc/redis/redis.conf.j2
+      dest: "{{ redis_configuration_file }}"
+    - src: etc/default/redis-server.j2
+      dest: "{{ redis_etc_defaults_file }}"
   notify: restart redis-server
   tags:
     - redis-configure-configuration

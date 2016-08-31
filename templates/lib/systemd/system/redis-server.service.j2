@@ -16,6 +16,9 @@ PIDFile={{ redis_pidfile }}
 Restart=always
 User=root
 Group=root
+{% if redis_limit_no_file is defined %}
+LimitNOFILE={{ redis_limit_no_file }}
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target
