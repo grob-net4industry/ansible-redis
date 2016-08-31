@@ -1,6 +1,6 @@
 # handlers file for redis
 ---
-- name: "restart {{ redis_instance_name_full }}"
+- name: restart redis-server
   service:
     name: "{{ redis_instance_service }}"
     state: restarted

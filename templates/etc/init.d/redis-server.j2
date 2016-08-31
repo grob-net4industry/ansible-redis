@@ -21,7 +21,7 @@ DAEMON_ARGS=/etc/redis/{{ redis_instance_name_full }}.conf
 NAME={{ redis_instance_service }}
 DESC={{ redis_instance_service }}
 
-RUNDIR={{ redis_pidfile | basedir }}
+RUNDIR={{ redis_pidfile | dirname }}
 PIDFILE=$RUNDIR/{{ redis_instance_service }}.pid
 
 test -x $DAEMON || exit 0

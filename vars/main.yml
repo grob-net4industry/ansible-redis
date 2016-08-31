@@ -1,6 +1,6 @@
 # vars file for redis
 ---
-redis_system_userredis_system_user: redis
+redis_system_user: redis
 redis_system_group: redis
 
 redis_instance_name_full: "redis{{ '-' + redis_instance_name if redis_instance_name else '' }}"

@@ -4,4 +4,22 @@
   remote_user: vagrant
   sudo: true
   roles:
-    - ../../
+    - role: ../../
+
+- hosts: all
+  remote_user: vagrant
+  sudo: true
+  roles:
+    - role: ../../
+      redis_instance_name: 'write-through'
+      redis_port: 6380
+      redis_databases: 18
+
+- hosts: all
+  remote_user: vagrant
+  sudo: true
+  roles:
+    - role: ../../
+      redis_instance_name: 'queue'
+      redis_port: 6381
+      redis_databases: 19
