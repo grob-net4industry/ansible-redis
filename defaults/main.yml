@@ -99,3 +99,4 @@ redis_includes: []
 #  - include /path/to/other.conf
 
 redis_vm_overcommit_memory: false
+redis_transparent_hugepage: false

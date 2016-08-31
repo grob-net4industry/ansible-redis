@@ -14,6 +14,7 @@
       redis_instance_name: 'write-through'
       redis_port: 6380
       redis_limit_no_file: 65536
+      redis_transparent_hugepage: never
 
 - hosts: all
   remote_user: vagrant

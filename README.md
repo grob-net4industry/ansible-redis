@@ -27,6 +27,9 @@ Some commonly used:
 * `redis_maxclients` [default: `null`]: Set the max number of connected clients at the same time
 * `redis_maxmemory` [default: `null`]: Don't use more memory than the specified amount of bytes
 
+* `redis_vm_overcommit_memory` [default: `false`]: Whether or not to set system overcommit policy, [see](http://redis.io/topics/faq#background-saving-is-failing-with-a-fork-error-under-linux-even-if-i39ve-a-lot-of-free-ram). Setting it to `1` is probably what you want
+* `redis_transparent_hugepage` [default: `false`]: Whether or not to disable transparent huge pages, [see](http://redis.io/topics/latency#redis-latency-problems-troubleshooting). Setting it to `never` is probably what you want
+
 #### Dependencies
 
 None
