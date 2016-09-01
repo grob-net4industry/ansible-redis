@@ -1,6 +1,6 @@
 # tasks file for redis
 ---
-- name: install dependencies
+- name: install | src | dependencies
   apt:
     name: "{{ item }}"
     state: latest
@@ -10,7 +10,7 @@
   tags:
     - redis-install-src-dependencies
 
-- name: create (checkout) directory
+- name: install | src | create (checkout) directory
   file:
     path: "{{ redis_checkout_path }}"
     state: directory
@@ -21,7 +21,7 @@
     - redis-install-src-dependencies-checkout
     - redis-install-src-dependencies-checkout-directory
 
-- name: checkout repository
+- name: install | src | checkout repository
   git:
     repo: https://github.com/antirez/redis.git
     dest: "{{ redis_checkout_path }}"
@@ -31,23 +31,23 @@
     - redis-install-src-dependencies-checkout
     - redis-install-src-dependencies-checkout-repository
 
-- name: make
-  command: make
+- name: install | src | make
+  command: make -j{{ ansible_processor_cores + 1 }}
   args:
     chdir: "{{ redis_checkout_path }}"
   when: git_checkout | changed
   tags:
     - redis-install-src-build
 
-- name: remove (distro version)
+- name: install | src | remove (distro version)
   apt:
     name: redis-server
     state: absent
   tags:
     - redis-install-src-remove-distro
 
-- name: install
-  command: make PREFIX=/usr/bin install
+- name: install | src | install
+  command: make PREFIX=/usr install
   args:
     chdir: "{{ redis_checkout_path }}"
   when: git_checkout | changed
@@ -55,7 +55,7 @@
   tags:
     - redis-install-src-install
 
-- name: add redis user
+- name: install | src | add redis user
   user:
     name: "{{ redis_system_user }}"
     comment: 'redis server'
@@ -65,7 +65,7 @@
   tags:
     - redis-install-src-user
 
-- name: cleanup build
+- name: install | src | cleanup build
   shell: git reset --hard && git clean -d -x -f
   args:
     chdir: "{{ redis_checkout_path }}"
