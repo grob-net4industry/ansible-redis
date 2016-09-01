@@ -1,5 +1,8 @@
 # defaults file for redis
 ---
+redis_install_method: 'src'
+redis_version: 3.2.3
+
 redis_instance_name: ''
 
 redis_daemonize: true
