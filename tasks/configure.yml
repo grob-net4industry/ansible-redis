@@ -1,0 +1,43 @@
+# tasks file for redis
+---
+- name: configure | stat directories
+  stat:
+    path: "{{ item }}/"
+  register: stat_directories
+  with_items:
+    - "{{ redis_configuration_file | dirname }}"
+    - "{{ redis_logfile | dirname }}"
+    - "{{ redis_dir }}"
+  when: item != ''
+  tags:
+    - redis-configure-directories
+    - redis-configure-directories-stat
+
+- name: configure | create directories
+  file:
+    path: "{{ item.item }}"
+    state: directory
+    owner: "{{ redis_system_user }}"
+    group: "{{ redis_system_group }}"
+    mode: 0755
+  with_items: "{{ stat_directories.results }}"
+  when: item.stat is defined and item.stat.exists == false
+  tags:
+    - redis-configure-directories
+    - redis-configure-directories-create
+
+- name: configure | update configuration file(s)
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - src: etc/redis/redis.conf.j2
+      dest: "{{ redis_configuration_file }}"
+    - src: etc/default/redis-server.j2
+      dest: "{{ redis_etc_default_file }}"
+  notify: restart redis-server
+  tags:
+    - redis-configure-configuration

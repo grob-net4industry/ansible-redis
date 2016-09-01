@@ -1,0 +1,29 @@
+; {{ ansible_managed }}
+
+[Unit]
+Description={{ redis_instance_service }} - Persistent key-value db
+After=network.target
+
+[Service]
+Type=forking
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p {{ redis_pidfile | dirname }}
+ExecStartPre=/bin/chown -R {{ redis_system_user }}:{{ redis_system_group }} {{ redis_pidfile | dirname }}
+{% if redis_transparent_hugepage != false %}
+{% for transparent_hugepage_file in redis_transparent_hugepage_files %}
+ExecStartPre=/bin/echo {{ redis_transparent_hugepage }} > {{ transparent_hugepage_file }}
+{% endfor %}
+{% endif %}
+ExecStart=/usr/bin/redis-server /etc/redis/{{ redis_instance_name_full }}.conf
+ExecStop=/bin/kill $MAINPID
+ExecReload=/bin/kill -USR2 $MAINPID
+PIDFile={{ redis_pidfile }}
+Restart=always
+User={{ redis_system_user }}
+Group={{ redis_system_group }}
+{% if redis_limit_no_file is defined %}
+LimitNOFILE={{ redis_limit_no_file }}
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

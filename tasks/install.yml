@@ -1,0 +1,15 @@
+# tasks file for redis
+---
+- name: install | add repository from PPA and install its signing key
+  apt_repository:
+    repo: 'ppa:chris-lea/redis-server'
+    update_cache: true
+  tags:
+    - redis-install-add-repository
+
+- name: install | latest
+  apt:
+    name: redis-server
+    state: latest
+  tags:
+    - redis-install-latest
