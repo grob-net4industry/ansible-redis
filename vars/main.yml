@@ -13,6 +13,10 @@ redis_transparent_hugepage_files:
   - /sys/kernel/mm/transparent_hugepage/enabled
   - /sys/kernel/mm/transparent_hugepage/defrag
 
+redis_install_methods_supported:
+  - 'ppa'
+  - 'src'
+
 redis_dependencies:
   - git-core
   - build-essential
