@@ -11,5 +11,6 @@
   sudo: true
   roles:
     - role: ../../
+      redis_install_method: 'src'
       redis_instance_name: 'write-through'
       redis_port: 6380

@@ -21,5 +21,6 @@
   sudo: true
   roles:
     - role: ../../
+      redis_install_method: 'src'
       redis_instance_name: 'queue'
       redis_port: 6381
