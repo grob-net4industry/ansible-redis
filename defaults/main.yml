@@ -1,9 +1,13 @@
 # defaults file for redis
 ---
+redis_install_method: 'ppa'
+redis_version: 3.2.3
+
 redis_instance_name: ''
 
 redis_daemonize: true
 redis_pidfile: "/var/run/redis/{{ redis_instance_service }}.pid"
+redis_protected_mode: true
 redis_port: 6379
 redis_tcp_backlog: 511
 redis_bind:
@@ -74,6 +78,8 @@ redis_hash_max_ziplist_entries: 512
 redis_hash_max_ziplist_value: 64
 redis_list_max_ziplist_entries: 512
 redis_list_max_ziplist_value: 64
+redis_list_max_ziplist_size: -2
+redis_list_compress_depth: 0
 redis_set_max_intset_entries: 512
 redis_zset_max_ziplist_entries: 128
 redis_zset_max_ziplist_value: 64

@@ -12,3 +12,13 @@ redis_etc_default_file: "/etc/default/{{ redis_instance_service }}"
 redis_transparent_hugepage_files:
   - /sys/kernel/mm/transparent_hugepage/enabled
   - /sys/kernel/mm/transparent_hugepage/defrag
+
+redis_install_methods_supported:
+  - 'ppa'
+  - 'src'
+
+redis_dependencies:
+  - git-core
+  - build-essential
+
+redis_checkout_path: /var/lib/ansible/redis/checkouts/redis

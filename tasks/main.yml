@@ -1,10 +1,30 @@
 # tasks file for redis
 ---
-- include: install.yml
+- name: install | method | check
+  fail:
+    msg: "Install method {{ redis_install_method }} is not supported"
+  when: redis_install_method | string not in redis_install_methods_supported
+  tags:
+    - configuration
+    - redis
+    - redis-install-method
+    - redis-install-method-check
+
+- include: install-ppa.yml
+  when: redis_install_method == 'ppa'
   tags:
     - configuration
     - redis
     - redis-install
+    - redis-install-ppa
+
+- include: install-src.yml
+  when: redis_install_method != 'ppa'
+  tags:
+    - configuration
+    - redis
+    - redis-install
+    - redis-install-src
 
 - include: configure.yml
   tags:
