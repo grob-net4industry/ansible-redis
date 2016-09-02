@@ -2,13 +2,16 @@
 
 [![Build Status](https://travis-ci.org/Oefenweb/ansible-redis.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-redis) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-redis-blue.svg)](https://galaxy.ansible.com/tersmitten/redis)
 
-Set up the latest stable redis server in Ubuntu systems (using [Chris Lea's ppa](https://launchpad.net/~chris-lea/+archive/ubuntu/redis-server)).
+Set up the latest stable redis server in Ubuntu systems (using [Chris Lea's ppa](https://launchpad.net/~chris-lea/+archive/ubuntu/redis-server) or from source).
 
 #### Requirements
 
 None
 
 #### Variables
+
+* `redis_install_method`: [default: `'ppa'`]: The installation method to use (e.g. `src`)
+* `redis_version`: [default: `3.2.3`]: Keepalived version to install (only applicable to `src` installs)
 
 * `redis_instance_name`: [default: `''`]: The name of the redis server instance, required when you want to run multiple instances
 * `redis_limit_no_file`: [optional]: Call `ulimit -n` with this argument prior to invoking Redis itself (e.g. `65536`)
@@ -63,6 +66,8 @@ None
 ```
 
 **Note** that multiple host sections are needed to flush handlers between role calls.
+
+**Note** that mixing install method `ppa` and `src` won't work.
 
 #### License
 
