@@ -34,7 +34,7 @@
     group: root
     mode: 0644
   with_items:
-    - src: etc/redis/redis.conf.j2
+    - src: "etc/redis/redis-{{ redis_install_method }}.conf.j2"
       dest: "{{ redis_configuration_file }}"
     - src: etc/default/redis-server.j2
       dest: "{{ redis_etc_default_file }}"
