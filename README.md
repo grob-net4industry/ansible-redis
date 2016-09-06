@@ -40,6 +40,11 @@ Some commonly used:
 
 None
 
+## Recommended
+
+* `rc-local` ([see](https://github.com/Oefenweb/ansible-rc-local), when `redis_vm_overcommit_memory` or `redis_transparent_hugepage` are `false`)
+* `sysfs` ([see](https://github.com/Oefenweb/ansible-sysfs), when `redis_vm_overcommit_memory` or `redis_transparent_hugepage` are `false`)
+
 #### Example(s)
 
 ##### Single instance
@@ -78,7 +83,7 @@ BSD
 
 #### Author Information
 
-Mischa ter Smitten (based on work of Benno Joy)
+Mischa ter Smitten (based on work of [Benno Joy](https://github.com/bennojoy))
 
 #### Feedback, bug-reports, requests, ...
 
