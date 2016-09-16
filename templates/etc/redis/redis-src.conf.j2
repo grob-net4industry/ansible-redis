@@ -104,9 +104,9 @@ tcp-backlog {{ redis_tcp_backlog }}
 # incoming connections. There is no default, so Redis will not listen
 # on a unix socket when not specified.
 #
-{% if not redis_unixsocket is none %}
+{% if redis_unixsocket is defined %}
 unixsocket {{ redis_unixsocket }}
-{% if not redis_unixsocketperm is none %}
+{% if redis_unixsocketperm is defined %}
 unixsocketperm {{ redis_unixsocketperm }}
 {% endif %}
 {% endif %}
@@ -174,13 +174,13 @@ logfile {{ redis_logfile }}
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.
-# syslog-enabled {{ 'yes' if redis_syslog_enabled else 'no' }}
+syslog-enabled {{ 'yes' if redis_syslog_enabled else 'no' }}
 
 # Specify the syslog identity.
-# syslog-ident {{ redis_syslog_ident }}
+syslog-ident {{ redis_syslog_ident }}
 
 # Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.
-# syslog-facility {{ redis_syslog_facility }}
+syslog-facility {{ redis_syslog_facility }}
 
 # Set the number of databases. The default database is DB 0, you can select
 # a different one on a per-connection basis using SELECT <dbid> where
@@ -272,7 +272,7 @@ dir {{ redis_dir }}
 #    network partition slaves automatically try to reconnect to masters
 #    and resynchronize with them.
 #
-{% if not redis_slaveof.masterip is none and not redis_slaveof.masterport is none %}
+{% if redis_slaveof is defined %}
 slaveof {{ redis_slaveof.masterip }} {{ redis_slaveof.masterport }}
 {% endif %}
 
@@ -281,7 +281,7 @@ slaveof {{ redis_slaveof.masterip }} {{ redis_slaveof.masterport }}
 # starting the replication synchronization process, otherwise the master will
 # refuse the slave request.
 #
-{% if not redis_masterauth is none %}
+{% if redis_masterauth is defined %}
 masterauth {{ redis_masterauth }}
 {% endif %}
 
@@ -361,7 +361,7 @@ repl-diskless-sync-delay {{ redis_repl_diskless_sync_delay }}
 # this interval with the repl_ping_slave_period option. The default value is 10
 # seconds.
 #
-# repl-ping-slave-period {{ redis_repl_ping_slave_period }}
+repl-ping-slave-period {{ redis_repl_ping_slave_period }}
 
 # The following option sets the replication timeout for:
 #
@@ -373,7 +373,7 @@ repl-diskless-sync-delay {{ redis_repl_diskless_sync_delay }}
 # specified for repl-ping-slave-period otherwise a timeout will be detected
 # every time there is low traffic between the master and the slave.
 #
-# repl-timeout {{ redis_repl_timeout }}
+repl-timeout {{ redis_repl_timeout }}
 
 # Disable TCP_NODELAY on the slave socket after SYNC?
 #
@@ -401,7 +401,7 @@ repl-disable-tcp-nodelay {{ 'yes' if redis_repl_disable_tcp_nodelay else 'no' }}
 #
 # The backlog is only allocated once there is at least a slave connected.
 #
-# repl-backlog-size {{ redis_repl_backlog_size }}
+repl-backlog-size {{ redis_repl_backlog_size }}
 
 # After a master has no longer connected slaves for some time, the backlog
 # will be freed. The following option configures the amount of seconds that
@@ -410,7 +410,7 @@ repl-disable-tcp-nodelay {{ 'yes' if redis_repl_disable_tcp_nodelay else 'no' }}
 #
 # A value of 0 means to never release the backlog.
 #
-# repl-backlog-ttl {{ redis_repl_backlog_ttl }}
+repl-backlog-ttl {{ redis_repl_backlog_ttl }}
 
 # The slave priority is an integer number published by Redis in the INFO output.
 # It is used by Redis Sentinel in order to select a slave to promote into a
@@ -441,13 +441,15 @@ slave-priority {{ redis_slave_priority }}
 #
 # For example to require at least 3 slaves with a lag <= 10 seconds use:
 #
-# min-slaves-to-write {{ redis_min_slaves_to_write }}
-# min-slaves-max-lag {{ redis_min_slaves_max_lag }}
+# min-slaves-to-write 3
+# min-slaves-max-lag 10
 #
 # Setting one or the other to 0 disables the feature.
 #
 # By default min-slaves-to-write is set to 0 (feature disabled) and
 # min-slaves-max-lag is set to 10.
+min-slaves-to-write {{ redis_min_slaves_to_write }}
+min-slaves-max-lag {{ redis_min_slaves_max_lag }}
 
 # A Redis master is able to list the address and port of the attached
 # slaves in different ways. For example the "INFO replication" section
@@ -475,8 +477,12 @@ slave-priority {{ redis_slave_priority }}
 # There is no need to use both the options if you need to override just
 # the port or the IP address.
 #
-# slave-announce-ip 5.5.5.5
-# slave-announce-port 1234
+{% if redis_slave_announce_ip is defined %}
+slave-announce-ip {{ redis_slave_announce_ip }}
+{% endif %}
+{% if redis_slave_announce_port is defined %}
+slave-announce-port {{ redis_slave_announce_port }}
+{% endif %}
 
 ################################## SECURITY ###################################
 
@@ -491,7 +497,7 @@ slave-priority {{ redis_slave_priority }}
 # 150k passwords per second against a good box. This means that you should
 # use a very strong password otherwise it will be very easy to break.
 #
-{% if not redis_requirepass is none %}
+{% if redis_requirepass is defined %}
 requirepass {{ redis_requirepass }}
 {% endif %}
 
@@ -529,7 +535,7 @@ rename-command {{ redis_command_rename.before }} {{ redis_command_rename.after }
 # Once the limit is reached Redis will close all the new connections sending
 # an error 'max number of clients reached'.
 #
-{% if not redis_maxclients is none %}
+{% if redis_maxclients is defined %}
 maxclients {{ redis_maxclients }}
 {% endif %}
 
@@ -556,7 +562,7 @@ maxclients {{ redis_maxclients }}
 # limit for maxmemory so that there is some free RAM on the system for slave
 # output buffers (but this is not needed if the policy is 'noeviction').
 #
-{% if not redis_maxmemory is none %}
+{% if redis_maxmemory is defined %}
 maxmemory {{ redis_maxmemory }}
 {% endif %}
 
@@ -581,7 +587,7 @@ maxmemory {{ redis_maxmemory }}
 #
 # The default is:
 #
-# maxmemory-policy {{ redis_maxmemory_polic }}
+maxmemory-policy {{ redis_maxmemory_policy }}
 
 # LRU and minimal TTL algorithms are not precise algorithms but approximated
 # algorithms (in order to save memory), so you can tune it for speed or
@@ -592,7 +598,7 @@ maxmemory {{ redis_maxmemory }}
 # The default of 5 produces good enough results. 10 Approximates very closely
 # true LRU but costs a bit more CPU. 3 is very fast but not very accurate.
 #
-# maxmemory-samples {{ redis_maxmemory_samples }}
+maxmemory-samples {{ redis_maxmemory_samples }}
 
 ############################## APPEND ONLY MODE ###############################
 
@@ -617,7 +623,7 @@ maxmemory {{ redis_maxmemory }}
 appendonly {{ 'yes' if redis_appendonly else 'no' }}
 
 # The name of the append only file (default: "appendonly.aof")
-# appendfilename {{ redis_appendfilename }}
+appendfilename {{ redis_appendfilename }}
 
 # The fsync() call tells the Operating System to actually write data on disk
 # instead of waiting for more data in the output buffer. Some OS will really flush
@@ -664,7 +670,6 @@ appendfsync {{ redis_appendfsync }}
 #
 # If you have latency problems turn this to "yes". Otherwise leave it as
 # "no" that is the safest pick from the point of view of durability.
-
 no-appendfsync-on-rewrite {{ 'yes' if redis_no_appendfsync_on_rewrite else 'no' }}
 
 # Automatic rewrite of the append only file.
