@@ -41,8 +41,34 @@ None
 * `redis_slaveof.masterip`: [required]:
 * `redis_slaveof.masterport`: [required]:
 * `redis_masterauth`: [optional]: Master server password
+* `redis_slave_serve_stale_data`: [default: `true`]:
+* `redis_slave_read_only`: [default: `true`]:
+* `redis_repl_diskless_sync`: [default: `false`]:
+* `redis_repl_diskless_sync_delay`: [default: `5`]:
+* `redis_repl_ping_slave_period`: [default: `10`]:
+* `redis_repl_timeout`: [default: `60`]:
+* `redis_repl_disable_tcp_nodelay`: [default: `false`]:
+* `redis_repl_backlog_size`: [default: `1mb`]:
+* `redis_repl_backlog_ttl`: [default: `3600`]:
+* `redis_slave_priority`: [default: `100`]:
+* `redis_min_slaves_to_write`: [default: `0`]:
+* `redis_min_slaves_max_lag`: [default: `10`]:
+* `redis_slave_announce_ip`: [optional]: 
+* `redis_slave_announce_port`: [optional]: 
+* `redis_requirepass`: [optional]: Require clients to issue `AUTH <PASSWORD>` before processing any other commands
+* `redis_command_renames`: [default: `[]`]:
+* `redis_maxclients`: [optional]:
+* `redis_maxmemory`: [optional]:
+* `redis_maxmemory_policy`: [default: `noeviction`]:
+* `redis_maxmemory_samples`: [default: `5`]:
+* `redis_appendonly`: [default: `false`]:
+* `redis_appendfilename`: [default: `appendonly.aof`]:
+* `redis_appendfsync`: [default: `everysec`]:
+* `redis_no_appendfsync_on_rewrite`: [default: `false`]:
+* `redis_auto_aof_rewrite_percentage`: [default: `100`]:
+* `redis_auto_aof_rewrite_min_size`: [default: `64mb`]:
+* `redis_aof_load_truncated`: [default: `true`]:
 
-* `redis_requirepass`: [default: `null`]: Require clients to issue `AUTH <PASSWORD>` before processing any other commands
 * `redis_maxclients`: [default: `null`]: Set the max number of connected clients at the same time
 * `redis_maxmemory`: [default: `null`]: Don't use more memory than the specified amount of bytes
 * `redis_list_max_ziplist_size`: [default: `-2`]: Lists are also encoded in a special way to save a lot of space. The number of entries allowed per internal list node can be specified as a fixed maximum size or a maximum number of elements (`>= 3.2` only)

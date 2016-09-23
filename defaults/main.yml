@@ -32,7 +32,6 @@ redis_rdbcompression: true
 redis_rdbchecksum: true
 redis_dbfilename: dump.rdb
 redis_dir: "/var/lib/{{ redis_instance_name_full }}"
-
 redis_slave_serve_stale_data: true
 redis_slave_read_only: true
 redis_repl_diskless_sync: false
@@ -45,14 +44,11 @@ redis_repl_backlog_ttl: 3600
 redis_slave_priority: 100
 redis_min_slaves_to_write: 0
 redis_min_slaves_max_lag: 10
-redis_requirepass: null
 redis_command_renames: []
 #  - before: CONFIG
 #    after: '""'
 #  - before: CONFIG
 #    after: b840fc02d524045429941cc15f59e41cb7be6c52
-redis_maxclients: null
-redis_maxmemory: null
 redis_maxmemory_policy: noeviction
 redis_maxmemory_samples: 5
 redis_appendonly: false
