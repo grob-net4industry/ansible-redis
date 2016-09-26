@@ -11,7 +11,7 @@ None
 #### Variables
 
 * `redis_install_method`: [default: `'ppa'`]: The installation method to use (e.g. `src`)
-* `redis_version`: [default: `3.2.3`]: Keepalived version to install (only applicable to `src` installs)
+* `redis_version`: [default: `3.2.4`]: Keepalived version to install (only applicable to `src` installs)
 
 * `redis_instance_name`: [default: `''`]: The name of the redis server instance, required when you want to run multiple instances
 * `redis_limit_no_file`: [optional]: Call `ulimit -n` with this argument prior to invoking Redis itself (e.g. `65536`)
