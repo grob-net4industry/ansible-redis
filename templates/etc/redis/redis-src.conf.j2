@@ -477,11 +477,11 @@ min-slaves-max-lag {{ redis_min_slaves_max_lag }}
 # There is no need to use both the options if you need to override just
 # the port or the IP address.
 #
-{% if redis_slave_announce_ip is defined %}
-slave-announce-ip {{ redis_slave_announce_ip }}
+{% if redis_slave_announce.ip is defined %}
+slave-announce-ip {{ redis_slave_announce.ip }}
 {% endif %}
-{% if redis_slave_announce_port is defined %}
-slave-announce-port {{ redis_slave_announce_port }}
+{% if redis_slave_announce.port is defined %}
+slave-announce-port {{ redis_slave_announce.port }}
 {% endif %}
 
 ################################## SECURITY ###################################

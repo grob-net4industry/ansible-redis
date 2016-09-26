@@ -1,9 +1,10 @@
 # defaults file for redis
 ---
 redis_install_method: 'ppa'
-redis_version: 3.2.3
+redis_version: 3.2.4
 
 redis_instance_name: ''
+
 redis_includes: []
 redis_bind:
   - 127.0.0.1
@@ -44,11 +45,8 @@ redis_repl_backlog_ttl: 3600
 redis_slave_priority: 100
 redis_min_slaves_to_write: 0
 redis_min_slaves_max_lag: 10
+redis_slave_announce: {}
 redis_command_renames: []
-#  - before: CONFIG
-#    after: '""'
-#  - before: CONFIG
-#    after: b840fc02d524045429941cc15f59e41cb7be6c52
 redis_maxmemory_policy: noeviction
 redis_maxmemory_samples: 5
 redis_appendonly: false
