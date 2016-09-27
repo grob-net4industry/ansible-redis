@@ -21,7 +21,7 @@ None
 
 ##### Configuration
 
-* `redis_include`: [default: `[]`]: (e.g. ['/path/to/local.conf', '/path/to/other.conf']) 
+* `redis_include`: [default: `[]`]: (e.g. `['/path/to/local.conf', '/path/to/other.conf']`) 
 * `redis_bind`: [default: `['127.0.0.1']`]: Listen for connections form the specified IP addresses
 * `redis_protected_mode`: [default: `true`]: By default protected mode is enabled. You should disable it only if you are sure you want clients from other hosts to connect to Redis even if no authentication is configured, nor a specific set of interfaces are explicitly listed using the `bind` directive (`>= 3.2` only)
 * `redis_port`: [default: `6379`]: Accept connections on the specified port
