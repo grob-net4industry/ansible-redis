@@ -10,10 +10,16 @@ None
 
 #### Variables
 
+##### Installation
+
 * `redis_install_method`: [default: `'ppa'`]: The installation method to use (e.g. `src`)
-* `redis_version`: [default: `3.2.4`]: Keepalived version to install (only applicable to `src` installs)
+* `redis_version`: [default: `3.2.4`]: Redis version to install (only applicable to `src` installs)
+
+##### (Multiple) instances
 
 * `redis_instance_name`: [default: `''`]: The name of the redis server instance, required when you want to run multiple instances
+
+##### Configuration
 
 * `redis_include`: [default: `[]`]: (e.g. ['/path/to/local.conf', '/path/to/other.conf']) 
 * `redis_bind`: [default: `['127.0.0.1']`]: Listen for connections form the specified IP addresses
@@ -73,30 +79,32 @@ None
 * `redis_no_appendfsync_on_rewrite`: [default: `false`]: Whether or not to disable `fsync` during AOF log rewrites
 * `redis_auto_aof_rewrite_percentage`: [default: `100`]: If the current size is bigger than the specified percentage, an AOF log rewrite is triggered
 * `redis_auto_aof_rewrite_min_size`: [default: `64mb`]: The minimal size for the AOF file to be rewritten
-* `redis_aof_load_truncated`: [default: `true`]:
-* `redis_lua_time_limit`: [default: `5000`]:
-* `redis_slowlog_log_slower_than`: [default: `10000`]:
-* `redis_slowlog_max_len`: [default: `128`]:
-* `redis_latency_monitor_threshold`: [default: `0`]:
-* `redis_notify_keyspace_events`: [default: `""`]:
-* `redis_hash_max_ziplist_entries`: [default: `512`]:
-* `redis_hash_max_ziplist_value`: [default: `64`]:
-* `redis_list_max_ziplist_entries`: [default: `512`]:
-* `redis_list_max_ziplist_value`: [default: `64`]:
+* `redis_aof_load_truncated`: [default: `true`]: If set to `true`, a truncated AOF file is loaded and the server starts emitting a log to inform the user of the event. Otherwise if the option is set to `false`, the server aborts with an error and refuses to start
+* `redis_lua_time_limit`: [default: `5000`]: Max execution time of a Lua script in milliseconds
+* `redis_slowlog_log_slower_than`: [default: `10000`]: Log queries slower than `M` microseconds. Note that a negative number disables the slow log, while a value of zero forces the logging of every command
+* `redis_slowlog_max_len`: [default: `128`]: The maximum length of the queue of logged queries
+* `redis_latency_monitor_threshold`: [default: `0`]: Latency monitoring subsystem samples different operations at runtime in order to collect data related to possible sources of latency. To enable use a values of `0` or more milliseconds
+* `redis_notify_keyspace_events`: [default: `""`]: Takes as argument a string that is composed of zero or multiple characters. An empty string means that notifications are disabled
+* `redis_hash_max_ziplist_entries`: [default: `512`]: Hashes are encoded using a memory efficient data structure when they have a small number of entries
+* `redis_hash_max_ziplist_value`: [default: `64`]: Hashes are encoded using a memory efficient data structure when the biggest entry does not exceed a given threshold
+* `redis_list_max_ziplist_entries`: [default: `512`]: Lists are encoded using a memory efficient data structure when they have a small number of entries (`< 3.2` only)
+* `redis_list_max_ziplist_value`: [default: `64`]: List are encoded using a memory efficient data structure when the biggest entry does not exceed a given threshold (`< 3.2` only)
 * `redis_list_max_ziplist_size`: [default: `-2`]: Lists are also encoded in a special way to save a lot of space. The number of entries allowed per internal list node can be specified as a fixed maximum size or a maximum number of elements (`>= 3.2` only)
 * `redis_list_compress_depth`: [default: `0`]: Lists may also be compressed. Compress depth is the number of quicklist ziplist nodes from each side of the list to exclude from compression (`>= 3.2` only)
-* `redis_set_max_intset_entries`: [default: `512`]:
-* `redis_zset_max_ziplist_entries`: [default: `128`]:
-* `redis_zset_max_ziplist_value`: [default: `64`]:
-* `redis_hll_sparse_max_bytes`: [default: `3000`]:
-* `redis_activerehashing`: [default: `true`]:
+* `redis_set_max_intset_entries`: [default: `512`]: Sets have a special encoding in just one case: when a set is composed of just strings that happen to be integers in radix 10 in the range of 64 bit signed integers. The following configuration setting sets the limit in the size of the set in order to use this special memory saving encoding
+* `redis_zset_max_ziplist_entries`: [default: `128`]: Sorted sets are encoded using a memory efficient data structure when they have a small number of entries
+* `redis_zset_max_ziplist_value`: [default: `64`]: Sorted sets are encoded using a memory efficient data structure when the biggest entry does not exceed a given threshold
+* `redis_hll_sparse_max_bytes`: [default: `3000`]: HyperLogLog sparse representation bytes limit. The limit includes the 16 bytes header. When an HyperLogLog using the sparse representation crosses this limit (in bytes), it is converted into the dense representation
+* `redis_activerehashing`: [default: `true`]: Whether or not to enable activere hashing. use `false` if you have hard latency requirements and it is not a good thing in your environment that the server can reply from time to time to queries with 2 milliseconds delay. use `true` if you don't have such hard requirements but want to free memory asap when possible
 * `redis_client_output_buffer_limits`: [default: `[{class: normal, hard_limit: 0, soft_limit: 0, soft_seconds: 0}, {class: slave, hard_limit: 256mb, soft_limit: 64mb, soft_seconds: 60}, {class: pubsub, hard_limit: 32mb, soft_limit: 8mb, soft_seconds: 60}]`]: Client output buffer limits declaration
-* `redis_client_output_buffer_limits.{n}.class`: [required]: (e.g. ``)
-* `redis_client_output_buffer_limits.{n}.hard_limit`: [required]: (e.g. ``)
-* `redis_client_output_buffer_limits.{n}.soft_limit`: [required]: (e.g. ``)
-* `redis_client_output_buffer_limits.{n}.soft_seconds`: [required]: (e.g. ``)
-* `redis_hz`: [default: `10`]:
-* `redis_aof_rewrite_incremental_fsync`: [default: `true`]:
+* `redis_client_output_buffer_limits.{n}.class`: [required]: The class classes of clients (e.g. `normal`, `slave` or `pubsub`)
+* `redis_client_output_buffer_limits.{n}.hard_limit`: [required]: A hard limit, forces an immediately disconnect (e.g. `256mb`)
+* `redis_client_output_buffer_limits.{n}.soft_limit`: [required]: A soft limit, forces a disconnect when remains reached for `soft_seconds` (e.g. `64mb`)
+* `redis_client_output_buffer_limits.{n}.soft_seconds`: [required]: (e.g. `60`)
+* `redis_hz`: [default: `10`]: The frequency in which the server calls an internal function to perform many background tasks, like closing connections of clients in timeout, purging expired keys that are never requested, and so forth. The range is between `1` and `500`, however a value over `100` is usually not a good idea. Most users should use the default of `10` and raise this up to `100` only in environments where very low latency is required
+* `redis_aof_rewrite_incremental_fsync`: [default: `true`]: When a child rewrites the AOF file, if the following option is enabled the file will be fsync-ed every 32 MB of data generated. This is useful in order to commit the file to the disk more incrementally and avoid big latency spikes
+
+##### Kernel
 
 * `redis_limit_no_file`: [optional]: Call `ulimit -n` with this argument prior to invoking Redis itself (e.g. `65536`)
 * `redis_vm_overcommit_memory`: [default: `false`]: Whether or not to set system overcommit policy, [see](http://redis.io/topics/faq#background-saving-is-failing-with-a-fork-error-under-linux-even-if-i39ve-a-lot-of-free-ram). Setting it to `1` is probably what you want
