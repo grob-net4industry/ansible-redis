@@ -32,6 +32,16 @@
     - redis
     - redis-configure
 
+- name: configure | version | get
+  command: redis-server --version
+  register: redis_binary_version
+  changed_when: false
+  tags:
+    - configuration
+    - redis
+    - redis-configure
+    - redis-configure-version-get
+
 - include: configure-initd.yml
   when: ansible_distribution_version | version_compare('15.04', '<')
   tags:
