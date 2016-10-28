@@ -26,6 +26,7 @@
     repo: https://github.com/antirez/redis.git
     dest: "{{ redis_checkout_path }}"
     version: "{{ redis_version }}"
+    force: true
   register: git_checkout
   tags:
     - redis-install-src-dependencies-checkout
